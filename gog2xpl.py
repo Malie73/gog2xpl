@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #coding: utf8
 #    Created: 21.05.2015
 #
@@ -120,6 +119,7 @@ def read_geos():
 
 
 def write_config(configFile, lang, lat):
+    print zoomLevel
     with open(configFile, 'r') as f:
         ini = f.read()
     ini = re.sub(
@@ -127,7 +127,7 @@ def write_config(configFile, lang, lat):
     ini = re.sub(
         'plane_lat\s*=\s*[-+0-9.]+', 'plane_lat=' + str(lat).strip(), ini)
     ini = re.sub(
-        'is_zoom_level\s*=\s*[-+0-9.]+', 'is_zoom_level=' + str(zoomLevel).strip(), ini)
+        'IS_zoom_level\s*=\s*[-+0-9.]+', 'IS_zoom_level=' + str(zoomLevel).strip(), ini)
     ini = re.sub('scenery_name\s*=\s*[-+0-9a-zA-Z._]+', 'scenery_name=xxx_'
                  + sceneryName +
                  str(lang.split('.', 1)[0].strip())
@@ -260,6 +260,22 @@ def init():
     pack = int(dummy)
     dummy = cfg.get('Misc','delCache')
     delCache = int(dummy)
+
+
+def del_workdirs(count):
+    print 'Raume auf'
+    try:
+        for counter in range(count):
+            remove_dir(str(counter))
+    except Exception as error:
+        print error
+
+def create_workdirs(count):
+    try:
+        for counter in range(count):
+            copy_dir(ori_dir, str(counter))
+    except Exception as error:
+        print error
     
 def main():
     try:
@@ -268,15 +284,12 @@ def main():
         print script_path
         init()
         read_geos()
-        for counter in range(tasks):
-            copy_dir(ori_dir, str(counter))
         if len(geo_list) == 0:
             print "Keine Datensaetze zu bearbeiten"
             sys.exit(0)
+        create_workdirs(tasks)
         createTask()
-        print "Loesche Verzeichnisse, kann ne Weile dauern..."
-        for counter in range(tasks):
-            remove_dir(str(counter))
+        del_workdirs(tasks)
         if delCache == 1:
             del_dsf_cache.start()
         if pack == 1:
@@ -284,6 +297,8 @@ def main():
             
     except KeyboardInterrupt:
         print 'Nutzerabbruch'
+        del_workdirs(tasks)
+        
     except Exception as error:
         print error
     
