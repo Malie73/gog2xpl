@@ -39,7 +39,7 @@ import ConfigParser
 import del_dsf_cache 
 import pack_and_move
 
-tasks = 0  # Anzahl gleichzeitiger Starts
+tasks = 1  # Anzahl gleichzeitiger Starts
 sceneryName = ''
 zoomLevel = ''
 ori_dir = ''
@@ -131,7 +131,7 @@ def write_config(configFile, lang, lat):
     ini = re.sub('scenery_name\s*=\s*[-+0-9a-zA-Z._]+', 'scenery_name=xxx_'
                  + sceneryName + '_' +
                  str(lang.split('.', 1)[0].strip()) + '_'
-                 + str(lat.split('.', 1)[0].strip()) + '_'
+                 + str(lat.split('.', 1)[0].strip())
                  + '_Z' + str(zoomLevel).strip(), ini)
 
     with open(configFile, 'w') as f:
@@ -254,8 +254,8 @@ def init():
     zoomLevel = cfg.get('g2xpl','zoomLevel')
     ori_dir = cfg.get('g2xpl','ori_dir')
     noerror_message = cfg.get('g2xpl','noerror_message')
-    dummy = cfg.get('g2xpl','tasks')
-    tasks = int(dummy)
+    #dummy = cfg.get('g2xpl','tasks')
+    #tasks = int(dummy)
     dummy = cfg.get('Misc','pack')
     pack = int(dummy)
     dummy = cfg.get('Misc','delCache')

@@ -45,12 +45,12 @@ def pack(source, dest, tag):
         for line in f:
             finish.append(line.strip())
         f.close()
-    
     for dir in os.listdir(source):
         if tag in dir and dir not in finish:
             try:
                 sub.call(['7z.exe', 'a', dir+'.7z', source+'/'+dir])
                 print "Move File"
+                print (dir+'.7z',dest+'/'+dir+'.7z')
                 os.rename(dir+'.7z',dest+'/'+dir+'.7z')
                 f = open('finish_pack.txt','a')
                 f.write(dir+'\n')
