@@ -129,9 +129,9 @@ def write_config(configFile, lang, lat):
     ini = re.sub(
         'IS_zoom_level\s*=\s*[-+0-9.]+', 'IS_zoom_level=' + str(zoomLevel).strip(), ini)
     ini = re.sub('scenery_name\s*=\s*[-+0-9a-zA-Z._]+', 'scenery_name=xxx_'
-                 + sceneryName +
-                 str(lang.split('.', 1)[0].strip())
-                 + str(lat.split('.', 1)[0].strip())
+                 + sceneryName + '_' +
+                 str(lang.split('.', 1)[0].strip()) + '_'
+                 + str(lat.split('.', 1)[0].strip()) + '_'
                  + '_Z' + str(zoomLevel).strip(), ini)
 
     with open(configFile, 'w') as f:

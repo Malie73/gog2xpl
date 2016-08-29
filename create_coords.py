@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #coding: utf8
 #    Created: 21.05.2015
 #
@@ -48,19 +47,21 @@ def getCoords (min, max):
     for i in range(min[0],max[0]+1):
         for j in range(min[1], max[1]+1):
             if i > 0 and i < 10:
-                tmp_i = '+0' + str(i) + '.000000'
-            elif i > 0 and i >= 10:
-                tmp_i = '+' + str(i) + '.000000'
+                #tmp_i = '+0' + str(i) + '.000000'
+                tmp_i = '0' + str(i) + '.000000'
+            #elif i > 0 and i >= 10:
+            #   tmp_i = '+' + str(i) + '.000000'
             elif i < 0 and i > -10:
                 tmp_i = '-0' + str(abs(i)) + '.000000'
             else:
                 tmp_i = str(i) + '.000000'
             if j > 0 and j < 10:
-                tmp_j = '+0' + str(j) + '.000000'
+                #tmp_j = '+0' + str(j) + '.000000'
+                tmp_j = '0' + str(j) + '.000000'
             elif j < 0 and j > -10:
                 tmp_j = '-0' + str(abs(j)) + '.000000'
-            elif j > 0 and j >= 10:
-                tmp_j = '+' + str(j) + '.000000'
+            #elif j > 0 and j >= 10:
+            #    tmp_j = '+' + str(j) + '.000000'
             else:
                 tmp_j = str(j) + '.000000'
                 
